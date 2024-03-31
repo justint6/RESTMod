@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from flask_swagger_ui import get_swaggerui_blueprint
 import json
+import os
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,7 +18,7 @@ api.add_resource(HelloWorld, '/hello')
 
 # Configure Swagger UI
 SWAGGER_URL = '/swagger'
-API_URL = 'http://127.0.0.1:5000/swagger.json'
+API_URL = 'http://127.0.0.1:8080/swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
@@ -47,4 +48,7 @@ def add_income():
     return '', 204
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = os.environ.get('FLASK_PORT') or 8080
+    port = int(port)
+
+    app.run(port=port, host='0.0.0.0')
