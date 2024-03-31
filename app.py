@@ -12,6 +12,12 @@ class HelloWorld(Resource):
     def get(self):
         return jsonify({'message': 'Hello, World!'})
 
+class DeviceValue:
+  def __init__(self, address, value):
+    self.value = value
+    self.address = address
+
+
 # Add the resource to the API
 api.add_resource(HelloWorld, '/hello')
 
@@ -43,9 +49,13 @@ def get_incomes():
 
 @app.route('/incomes', methods=['POST'])
 def add_income():
-    incomes.append(request.get_json())
-
-    return '', 204
+    postdata = request.get_json()
+    incomes.append(postdata)
+    device1 = DeviceValue(postdata['description'], postdata['amount'])
+    print(device1.value)
+    print(device1.address)
+    returnvalue = device1.value;
+    return str(returnvalue) + ' ' + str(device1.address), 200
 
 if __name__ == '__main__':
     port = os.environ.get('FLASK_PORT') or 8080
