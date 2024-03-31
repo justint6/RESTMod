@@ -1,19 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: RESTMod
+  name: restmodapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: RESTModApp
+      app: restmodapp
   template:
     metadata:
       labels:
-        app: RESTModApp
+        app: restmodapp
     spec:
       containers:
-        - name: RESTMod
+        - name: restmod
           image: python-image:latest
           ports:
             - name: http
@@ -27,7 +27,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: RESTMod
+  name: restmod
 spec:
   ports:
     - name: http-8081
@@ -35,4 +35,4 @@ spec:
       protocol: TCP
       targetPort: 8081
   selector:
-    app: RESTModApp
+    app: restmodapp
