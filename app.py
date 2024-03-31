@@ -24,7 +24,7 @@ api.add_resource(HelloWorld, '/hello')
 
 # Configure Swagger UI
 SWAGGER_URL = '/swagger'
-API_URL = 'http://127.0.0.1:8080/swagger.json'
+API_URL = './swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
